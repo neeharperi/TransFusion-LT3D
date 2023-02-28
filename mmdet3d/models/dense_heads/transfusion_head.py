@@ -1325,7 +1325,7 @@ class TransFusionHead(nn.Module):
 
             if self.test_cfg['dataset'] == 'nuScenes' or self.test_cfg['dataset'] == 'AV2':
                 self.tasks = [
-                dict(num_class=len(self.num_classes), class_names=[], indices=list(np.arange(len(self.num_classes))), radius=-1),
+                dict(num_class=self.num_classes, class_names=[], indices=list(np.arange(self.num_classes)), radius=-1),
                 ]
      
             ret_layer = []

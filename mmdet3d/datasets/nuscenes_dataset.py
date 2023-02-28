@@ -377,7 +377,7 @@ class NuScenesDataset(Custom3DDataset):
             predictions["results"][sample_token] = filter_lidar
             return predictions
         
-    def _format_bbox(self, results, jsonfile_prefix=None):
+    def _format_bbox(self, results, jsonfile_prefix=None, filter=None):
         """Convert the results to the standard format.
 
         Args:
@@ -483,8 +483,8 @@ class NuScenesDataset(Custom3DDataset):
             config=self.eval_detection_configs,
             result_path=result_path,
             eval_set=eval_set_map[self.version],
-            output_dir=output_path,
-            metric=metric_type,
+            output_dir=output_dir,
+            metric_type=metric_type,
             verbose=False)
         nusc_eval.main(render_curves=False)
 
@@ -739,6 +739,10 @@ def lidar_nusc_box_to_global(info,
         # filter det in ego.
         cls_range_map = eval_configs.class_range
         radius = np.linalg.norm(box.center[:2], 2)
+
+        if box.label >= len(classes):
+            continue 
+
         det_range = cls_range_map[classes[box.label]]
         if radius > det_range:
             continue

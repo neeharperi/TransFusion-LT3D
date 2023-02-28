@@ -14,6 +14,7 @@ from mmdet3d.datasets import build_dataloader, build_dataset
 from mmdet3d.models import build_detector
 from mmdet.apis import multi_gpu_test, set_random_seed
 from mmdet.datasets import replace_ImageToTensor
+from nntime import export_timings
 
 
 def parse_args():
@@ -22,8 +23,7 @@ def parse_args():
     parser.add_argument('config', help='test config file path')
     parser.add_argument('checkpoint', help='checkpoint file')
     parser.add_argument('--out', help='output result file in pickle format')
-	parser.add_argument('--metric_type',default="standard")	
-    parser.add_argument('--out', help='output result file in pickle format')	
+    parser.add_argument('--metric_type',default="standard")	
     parser.add_argument('--cached')	
     parser.add_argument('--filter')	
     parser.add_argument('--predictions')	
@@ -202,7 +202,7 @@ def main():
         if args.out:
             print(f'\nwriting results to {args.out}')
             mmcv.dump(outputs, args.out)
-	    if args.cached:	
+        if args.cached:	
             print(f'\nloading results from {args.cached}')	
             outputs = mmcv.load(args.cached)
             
@@ -213,11 +213,10 @@ def main():
             eval_kwargs = cfg.get('evaluation', {}).copy()
             # hard-code way to remove EvalHook args
             
-	        eval_kwargs["metric_type"] = args.metric_type	
+            eval_kwargs["metric_type"] = args.metric_type	
             if args.filter is not None:	
-                
                 eval_kwargs["filter"] = args.filter	
-                
+
             if args.predictions is not None:	
                 eval_kwargs["predictions"] = args.predictions	
                 eval_kwargs["ground_truth"] = args.ground_truth
@@ -229,13 +228,13 @@ def main():
                 eval_kwargs.pop(key, None)
             eval_kwargs.update(dict(metric=args.eval, **kwargs))
             
-	        if args.out is not None: 	
+            if args.out is not None: 	
                 out_path = "/".join(args.out.split("/")[:-1])	
             if args.cached is not None:	
                 out_path = "/".join(args.cached.split("/")[:-1])	
             if args.predictions is not None:	
                 out_path = "/".join(args.predictions.split("/")[:-1])	
-            	
+
             if args.out is not None: 	
                 export_timings(model, out_path + "/timing.csv")	
             	
