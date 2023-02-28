@@ -638,8 +638,6 @@ class NuScenesDataset(Custom3DDataset):
         if tmp_dir is not None:
             tmp_dir.cleanup()
 
-        if show:
-            self.show(results, out_dir)
         return results_dict
 
     def show(self, results, out_dir):
