@@ -1,6 +1,6 @@
 # TransFusion LT3D 
 
-We adapt [TransFusion](https://github.com/XuyangBai/TransFusion) for LT3D. This codebase has been tested for nuScenes and Argoverse 2.0. 
+We adapt [TransFusion](https://github.com/XuyangBai/TransFusion) for LT3D. This codebase has been tested for nuScenes and Argoverse 2.0. Different from the original TransFusion implementation, we modify the coordinate system to match LT3D (which uses the updated mmdetection3d coordinate frame.)
 
 Please see [LT3D](https://github.com/neeharperi/LT3D) for setup instructions. 
 
