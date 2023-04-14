@@ -4,6 +4,8 @@ We adapt [TransFusion](https://github.com/XuyangBai/TransFusion) for LT3D. This 
 
 Please see [LT3D](https://github.com/neeharperi/LT3D) for setup instructions. 
 
+### [Pre-trained Detection Models](https://drive.google.com/drive/folders/1BVhYv-kJE_ydbvDDz8AA3pgDdVTSCHIT?usp=share_link)
+
 If you find this codebase useful, please consider citing:
 
     @article{peri2022towards,
